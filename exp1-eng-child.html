@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- Experiment 1. implementation with survey-text -->
+<html>
+	<head>
+    	<title>Experiment 1 - English child</title>
+    	<script src="../jquery.min.js"></script>
+   		<script src="../jspsych-5.0/jspsych.js"></script>
+    	<script src="../jspsych-5.0/plugins/jspsych-text.js"></script>
+		<script src="../jspsych-5.0/plugins/jspsych-survey-text.js"></script>
+		<script src="stim_list_exp1.js"></script>
+   		<link href="../jspsych-5.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+	<style>
+	body{
+		background-color: #3b3b3b;
+		color: white;
+	}
+	
+	.jspsych-display-element{
+		width: 800px;
+		margin: 150px auto 50px auto;
+	}
+	</style>
+	</head>
+	<body>
+		<div id="jspsych-target"></div>
+	</body>
+	<script>
+	
+	var timeline = [];
+	
+	var subject_id = {
+		type: "survey-text",
+		questions: ["Subject ID"],
+		rows: 1,
+		hide: false
+	};
+	
+	timeline.push(subject_id);
+	
+	
+	for (var i = 0; i < shuffled_trials.length; i++){
+		var test_block = {
+			type: "text",
+			text: '<video width="800" controls preload="auto"> <source src="../stim/' 
+			+ shuffled_trials[i] + '" type="video/mp4"></video>',
+			video: shuffled_trials[i]
+		};
+		timeline.push(test_block);
+	};
+	
+	jsPsych.init({
+		display_element: $('#jspsych-target'),
+		timeline: timeline,
+		on_finish: function(){
+		    var data_obj = jsPsych.data.getDataByTrialIndex(0);
+		    var resp = data_obj["responses"];
+		    jsPsych.data.addProperties({subject: JSON.stringify(resp.substring(7,9))});
+			jsPsych.data.addProperties({date: JSON.stringify(Date())});
+			jsPsych.data.localSave('S' + JSON.stringify(resp.substring(7,9)) +'exp1_child.csv', 'csv');
+		}
+	});
+	</script>
+</html>
+	

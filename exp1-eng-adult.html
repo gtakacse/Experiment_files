@@ -1,0 +1,109 @@
+<!doctype html>
+<!-- Experiment 1. implementation with survey-text -->
+<html>
+  <head>
+    <title>Experiment 1 - English adult</title>
+    <script src="../jquery.min.js"></script>
+    <script src="../jspsych-5.0/jspsych.js"></script>
+    <script src="../jspsych-5.0/plugins/jspsych-text.js"></script>
+	<script src="../jspsych-5.0/plugins/jspsych-survey-text.js"></script>
+	<script src="stim_list_exp1.js"></script>
+    <link href="../jspsych-5.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+	<style>
+	body{
+		background-color: #3b3b3b;
+		color: white;
+	}
+	
+	.jspsych-survey-text-question {
+		text-align: center;
+		font-size: 115%;
+	}
+	.jspsych-btn.jspsych-survey-text {
+		margin-left:42%;
+		margin-right:60%;
+		font: normal 14px arial, sans-serif;
+	}
+
+	#Qbtn{
+		display: none;
+	}
+
+	</style>
+	<meta charset="UTF-8">
+  </head>
+  <body>
+	  <div id="jspsych-target"></div>
+  </body>
+  <script>
+  
+  var welcome_block = {
+	  type: "text",
+	  text: '<div class="welcome">Welcome to the experiment. <br></div>' + 
+	  '<div class="continue_text"> <p>Press any key to begin.</p></div>'
+  };
+  var timeline = [];
+  timeline.push(welcome_block);
+  
+  var background = {
+	  type: "survey-text",
+	  questions: ["Subject ID", "Age", "Gender", "City of Birth", "Highest Degree Completed"],
+	  rows: 1,
+	  hide: false
+  };
+  timeline.push(background);
+  
+  var instruction_block = {
+	  type: "text",
+	  text: '<div class="intro"> Instructions </div>'+
+	  '<div class="intro_text"> <p> In this experiment, you will see some short videos of toys in different settings. </p>' +
+	  '<p> You will be asked to <b>watch</b> one video at a time and to <b>summarize</b> in one short sentence what happened in each video. Type your answer into the text box at the bottom of each page. When you are done, press the “Submit Answer” button. </p>' +
+	  '<p><b> Each video will start automatically and play only once. Pay careful attention and <i>write your answer only when the video has stopped. </i></b></p>' +
+	  '<p> It will take approximately 20 minutes to complete the experiment. </p></div>'+
+	  '<div class="continue_text"> <p>Press any key to continue.</p></div>'
+  };
+  timeline.push(instruction_block);
+  
+  /* the paths to the vidos are in stim_list.js */
+  var question = ['<p id="myQ">Describe in one short sentence what happened in the video.</p>'];
+  
+  for (var i =0; i < shuffled_trials.length; i++){
+	  var test_block ={
+	  	type: "survey-text",
+		preamble: '<video id="video_stim" width="800" autoplay preload="auto"> <source src="../stim/' 
+	+ shuffled_trials[i] + '" type="video/mp4"></video>',
+		  video: shuffled_trials[i],
+		  questions: question,
+		  rows: 1,
+		  hide: true
+	  };  	
+
+  	
+	timeline.push(test_block);
+  };
+  var good_bye = {
+	  type:"text",
+	  text: '<div class= "welcome"> <p>The experiment is over.</p> <p>Thank you for participating!</p></div>'+
+	  '<div class="continue_text"> <p>Press any key to save the results. </p></div>'
+  };
+  timeline.push(good_bye);
+  
+  
+	  
+	  /* START EXPERIMENT */
+	  jsPsych.init({
+		display_element: $('#jspsych-target'),
+	  	timeline: timeline,
+		on_finish: function(){
+		    var data_obj = jsPsych.data.getDataByTrialIndex(1);
+		    var resp = data_obj["responses"];
+		    jsPsych.data.addProperties({subject: JSON.stringify(resp.substring(7,9))});
+			jsPsych.data.addProperties({date: JSON.stringify(Date())});
+			jsPsych.data.localSave('S' + JSON.stringify(resp.substring(7,9)) +'exp1_adult.csv', 'csv');
+			//jsPsych.data.displayData('csv');
+		}
+	  });
+	  
+	  
+  </script>
+</html>
