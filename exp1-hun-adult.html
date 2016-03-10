@@ -2,7 +2,7 @@
 <!-- Experiment 1. implementation with survey-text -->
 <html>
   <head>
-    <title>Experiment 1 - English adult</title>
+    <title>Experiment 1 - Hungarian adult</title>
     <script src="../jquery.min.js"></script>
     <script src="../jspsych-5.0/jspsych.js"></script>
     <script src="../jspsych-5.0/plugins/jspsych-text.js"></script>
@@ -39,15 +39,15 @@
   
   var welcome_block = {
 	  type: "text",
-	  text: '<div class="welcome">Welcome to the experiment. <br></div>' + 
-	  '<div class="continue_text"> <p>Press any key to begin.</p></div>'
+	  text: '<div class="welcome"> Üdvözöljük a kísérletben! <br></div>' + 
+	  '<div class="continue_text"> <p>Nyomjon meg egy tetszőlegess billentyűt a kísérlet kezdéséhez!</p></div>'
   };
   var timeline = [];
   timeline.push(welcome_block);
   
   var background = {
 	  type: "survey-text",
-	  questions: ["Subject ID", "Age", "Gender", "City of Birth", "Highest Degree Completed"],
+	  questions: ["Résztvevői azonosító", "Kor", "Nem", "Születési hely", "Legmagasabb végzettség"],
 	  rows: 1,
 	  hide: false
   };
@@ -55,19 +55,19 @@
   
   var instruction_block = {
 	  type: "text",
-	  text: '<div class="intro"> Instructions </div>'+
-	  '<div class="intro_text"> <p> In this experiment, you will see some short videos of toys in different settings. </p>' +
-	  '<p> You will be asked to <b>watch</b> one video at a time and to <b>summarize</b> in one short sentence what happened in each video. Type your answer into the text box at the bottom of each page. When you are done, press the “Submit Answer” button. </p>' +
-	  '<p><b> Each video will start automatically and play only once. During the experiment, you are only allowed to move forward.</b></p>' +
-	  '<p><b> There is no way to rewatch the videos or to modify your previously submitted answers. So pay careful attention and <i>write your answer only when the video has stopped. </i></b></p>' +
-	  "<p> PLEASE DON'T PRESS THE REFRESS BUTTON OF THE BROWSWER, because it will restart the whole experiment! </p>" +
-	  '<p> It will take approximately 20 minutes to complete the experiment. </p></div>'+
-	  '<div class="continue_text"> <p>Press any key to continue.</p></div>'
+	  text: '<div class="intro"> Instrukciók </div>'+
+	  '<div class="intro_text"> <p>A kísérlet során rövid filmeket fog látni, amelyben kisebb játékok fognak megjelenni különböző helyzetekben.</p> +
+<p> Az Ön feladata az lesz, hogy egyenként <b>végignézze</b> a videókat és mindegyik videó után egy mondatban <b>összefoglalja</b>, hogy mi történt a kis filmeken. A válaszát minden videó után a képernyő alján megjelenő szövegdobozba kell begépelnie. Miután végzett, a “Válasz küldése” gombra kattintva  léphet tovább a következő videóra. </p> +
+<p><b>Minden videó automatikusan kezdődik és csak egyszer nézhető meg! A kísérlet során nincs lehetősége visszalépni azokra a lapokra, amelyeken egyszer már továbblépett, tehát kizárólag előre haladhat! </b></p> +
+<p><b>Ezen okokból kifolyólag, kérjük nagyon figyeljen és a válaszát csak akkor kezdje el begépelni, ha a videó már befejeződött. </b></p> +
+<p><b>Kérjük NE KATTINTSON A BÖNGÉSZŐ ÚJRATÖLTÉS GOMBJÁRA, mert azzal a kísérlet a legelejétől kezdődik újra! </b></p> +
+<p>A kísérlet körülbelül 20 percet vesz igénybe.</p> </div>'+
+	  '<div class="continue_text"> <p>Nyomjon meg egy tetszőleges billentyűt a folytatáshoz!</p></div>'
   };
   timeline.push(instruction_block);
   
   /* the paths to the vidos are in stim_list.js */
-  var question = ['<p id="myQ">Describe in one short sentence what happened in the video.</p>'];
+  var question = ['<p id="myQ"> Foglalja össze egy rövid mondatban, hogy mi történt a videón! </p>'];
   
   for (var i =0; i < shuffled_trials.length; i++){
 	  var test_block ={
@@ -85,8 +85,8 @@
   };
   var good_bye = {
 	  type:"text",
-	  text: '<div class= "welcome"> <p>The experiment is over.</p> <p>Thank you for participating!</p></div>'+
-	  '<div class="continue_text"> <p>Press any key to save the results. </p></div>'
+	  text: '<div class= "welcome"> <p>A kísérlet befejeződött.</p> <p>Köszönjük a részvételét!</p></div>'+
+	  '<div class="continue_text"> <p> Nyomjon meg egy tetszőleges billentyűt az eredmények mentéséhez! </p></div>'
   };
   timeline.push(good_bye);
   

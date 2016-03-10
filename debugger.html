@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Debugging page</title>
+		<script src="../jquery.min.js"></script>
+		<script src="../jspsych-5.0/jspsych.js"></script>
+		<script src="stim_list_exp3_child_hun.js"></script>
+		
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<p>Length of training_set is: </p>
+		<p id="training_value"></p>
+		
+		<p>Length of shuffled_trials is:</p>
+		<p id="value"></p>
+		<script>
+		var x = document.getElementById("value")
+		x.innerHTML= len;
+		var y = document.getElementById("training_value")
+		y.innerHTML= train_len;
+		
+		var list = $('<ul />'); // create UL
+		extractResult(shuffled_trials);
+		$('#value').append(list);
+		
+		var list = $('<ul />');
+		extractResult(training_set);
+		$('#training_value').append(list);
+		
+		function extractResult(result){
+			jQuery.each(result, function(index, obj) {
+				for(var key in obj){
+					$('<li/>', {text: obj[key]}).appendTo(list);
+				}
+				
+			});
+		}
+		</script>
+
+	</body>
+</html>

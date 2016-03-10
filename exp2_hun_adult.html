@@ -1,0 +1,115 @@
+<!doctype html>
+<!-- Experiment 2 - English adult version -->
+<html>
+	<head>
+		<title>Experiment 2 - Hungarian adult</title>
+		<script src="../jquery.min.js"></script>
+		<script src="../jspsych-5.0/jspsych.js"></script>
+		<script src="../jspsych-5.0/plugins/jspsych-text.js"></script>
+		<script src="../jspsych-5.0/plugins/jspsych-survey-text.js"></script>
+		<script src="../jspsych-5.0/plugins/jspsych-survey-likert.js"></script>
+		<script src="stim_list_exp2.js"></script>
+		<link href="../jspsych-5.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+		<style>
+		
+		body{
+			background-color: #3b3b3b;
+			color: white;
+		}
+
+		.jspsych-survey-likert-opt-label{
+			font-size: 125%;
+		}
+		
+		.jspsych-survey-likert-statement{
+			text-align: center;
+			font-size: 115%;
+		}
+		.jspsych-survey-text-question {
+			text-align: center;
+			font-size: 115%;
+		}
+		.jspsych-btn.jspsych-survey-text {
+			margin-left:42%;
+			margin-right:60%;
+			font: normal 14px arial, sans-serif;
+		}
+		#sentence_stim{
+			font-size: 26px;
+			font-weight: bold;
+		}		
+		</style>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="jspsych-target"></div>
+	</body>
+	<script>
+	var timeline = [];
+	var welcome_block = {
+		type: "text",
+	  text: '<div class="welcome">Üdvözöljük a kísérletben! <br></div>' + 
+	  '<div class="continue_text"> <p>Nyomjon meg egy tetszőlegess billentyűt a kísérlet kezdéséhez!</p></div>'
+	};
+	timeline.push(welcome_block);
+	
+    var background = {
+  	  type: "survey-text",
+  	  questions: ["Résztvevői azonosító", "Kor", "Nem", "Születési hely,", "Legmagasabb iskolai végzettség"],
+	  rows: 1
+    };
+    timeline.push(background);
+	
+	var instruction_block = {
+		type: "text",
+		text: '<div class="intro"> Instrukciók </div>'+
+	  '<div class="intro_text"><p>A kísérlet során rövid filmeket fog látni, amelyek egy-egy rövid mondattal lettek összepárosítva. </p>' +
+		'<p>Az Ön feladata az lesz, hogy egyenként <b>végignézze</b> a videókat és <b>eldöntse</b> a videó alatti mondat mennyire jól jellemzi a videón történteket. A válaszát egy 1-től (<i>nagyon elégtelenül</i>) 4-ig (<i>nagyon jól</i>) terjedő skálán kell majd megadnia. A válaszát a megfelelő érték feletti pontra kattintva jelölheti.</p>' +
+		'<p>A skálára itt egy példa:</p>' +
+		'<form id="jspsych-survey-likert-form"><label class="jspsych-survey-likert-statement"></label><ul class="jspsych-survey-likert-opts" data-radio-group="Q0"><li style="width:25%"><input type="radio" name="Q0" value="0"><label class="jspsych-survey-likert-opt-label">1. Nagyon elégtelenül</label></li><li style="width:25%"><input type="radio" name="Q0" value="1"><label class="jspsych-survey-likert-opt-label">2. Elégtelenül</label></li><li style="width:25%"><input type="radio" name="Q0" value="2"><label class="jspsych-survey-likert-opt-label">3. Jól</label></li><li style="width:25%"><input type="radio" name="Q0" value="3"><label class="jspsych-survey-likert-opt-label">4. Nagyon jól</label></li></ul></form>' +
+	'<p>Miután végzett, a “Válasz küldése” gombra kattintva  léphet tovább a következő videóra. </p>' +
+	'<p><b>Minden videó automatikusan kezdődik és csak egyszer nézhető meg! </b></p>' +
+	'<p><b>A kísérlet során nincs lehetősége visszalépni azokra a lapokra, amelyeken egyszer már továbblépett, tehát kizárólag előre haladhat! Ezen okokból kifolyólag, kérjük nagyon figyeljen és a válaszát csak akkor adja meg, ha a videó már befejeződött. </b></p>' +
+	'<p><b>Kérjük NE KATTINTSON A BÖNGÉSZŐ ÚJRATÖLTÉS GOMBJÁRA, mert azzal a kísérlet a legelejétől kezdődik újra!</b></p>' +
+	'<p>A kísérlet körülbelül 35 percet vesz igénybe.</p></div>' +
+	'<div class="continue_text"> <p>Nyomjon meg egy tetszőleges billentyűt a folytatáshoz!</p></div>'
+	};
+	
+	timeline.push(instruction_block);
+    // defining two different response scales that can be used.
+    var scale_1 = ["1. Nagyon elégtelenül", "2. Elégtelenül", "3. Jól", "4. VNagyon jól"];
+    
+	for (var i=0; i < shuffled_trials.length; i++ ){
+		var likert_block = {
+	        type: 'survey-likert',
+	        questions: ["Milyen jól jellemzi a mondat a videón történteket?"],
+	        labels: [scale_1], // need one scale for every question on a page
+			preamble: '<video width="800" autoplay preload="auto"> <source src="../stim/' 
+	+ shuffled_trials[i].video + '" type="video/mp4"></video>',
+			stim:  shuffled_trials[i].sentence,
+			condition: shuffled_trials[i].condition,
+			video: shuffled_trials[i].video
+	    };
+		timeline.push(likert_block);
+	};
+	
+    var good_bye = {
+  	  type:"text",
+  	  text: '<div class= "welcome"> <p>A kísérletnek vége.</p> <p>Köszönjük a részvételét!</p></div>'+
+  	  '<div class="continue_text"> <p>Nyomjon meg egy tetszőleges billentyűt az eredmények mentéséhez! </p></div>'
+    };
+    timeline.push(good_bye);
+	
+    jsPsych.init({
+      display_element: $('#jspsych-target'),
+		timeline: timeline,
+      on_finish: function() { 
+		var data_obj = jsPsych.data.getDataByTrialIndex(1);
+		var resp = data_obj["responses"];
+		jsPsych.data.addProperties({subject: JSON.stringify(resp.substring(7,9))});
+		jsPsych.data.localSave('S' + JSON.stringify(resp.substring(7,9)) +'exp2_adult.csv', 'csv');
+	  }
+    });
+	
+	</script>
+</html>

@@ -1,4 +1,4 @@
-/* Different video types for Experiment 3 */
+/* Different video types for Experiment 3 - Hungarian */
 
 /* Path of different stimuli types */
 
@@ -28,37 +28,43 @@ var filler1 = ["filler.rabbit.push.mp4",
 var filler2 = ["filler.penguin.push.mp4", 
 			"filler.caterpillar.pull.mp4"];
 
-var in_sent = ["The caterpillar crawled in the box.", 
-			"The monkey walked in the cave.", 
-			"The bunny hopped in the garden.", 
-			"The penguin waddled in the garden."];
+var in_sent = ["A hernyó a dobozban mászott.",
+				"A majom a barlangban sétált.",
+				"A nyuszi a kertben ugrált.",
+				"A pingvin a kertben totyogott."];
+				
+var into_sent = ["A hernyó a dobozba mászott.", 
+				"A majom a barlangba sétált.", 
+				"A nyuszi a kertbe ugrált.", 
+				"A pingvin a kertbe ugrált."];
+				
+var on_sent = ["A nyuszi a tányéron ugrált.", 
+				"A majom a dobozon sétált.", 
+				"A pingvin a könyvön totyogott.",  
+				"A hernyó a kosáron mászott."];
 
-var into_sent = ["The caterpillar crawled into the box.", 
-			"The monkey walked into the cave.", 
-			"The bunny hopped into the garden.", 
-			"The penguin waddled into the garden."];
+var onto_sent = ["A nyuszi a tányérra ugrált.", 
+				"A majom a dobozra sétált.", 
+				"A pingvin a könyvre totyogott.",
+				"A hernyó a kosárra mászott."];
 
-var on_sent = ["The bunny hopped on the plate.", 
-			"The monkey walked on the box.", 
-			"The penguin waddled on the book.", 
-			"The caterpillar crawled on the basket."];
+var filler1_sent = ["A nyuszi tolta a poharat.", 
+					"A majom húzta a kocsit."];
 
-var onto_sent = ["The bunny hopped onto the plate.", 
-			"The monkey walked onto the box.", 
-			"The penguin waddled onto the book.", 
-			"The caterpillar crawled onto the basket."];
+var filler2_sent = ["A pingvin tolta a poharat.", 
+					"A hernyó húzta a kocsit."];
+					
+var fillerUnder_g = ["filler.under.g.caterpillar.mp4",  
+					"filler.under.g.monkey.bed.mp4"];
 
-var filler1_sent = ["The bunny pushed the cup.", 
-					"The monkey pulled the car."];
+var fillerUnder_p = ["filler.under.p.caterpillar.mp4",
+					"filler.under.p.monkey.bed.mp4"];
 
-var filler2_sent = ["The penguin pushed the cup.", 
-					"The caterpillar pulled the car."];
-
-var fullPath = function(path){
-	fullP = '<video width="800" autoplay preload="auto"> <source src="stim/' 
-	+ path + '" type="video/mp4"></video>';
-	return fullP
-};
+var filler_u_g_s = ["A hernyó a kék asztal alá mászott.",
+					"A majom az ágy alá sétált."];
+					
+var filler_u_p_s = ["A hernyó a kék asztal alatt mászott.",
+					"A majom az ágy alatt sétált."];
 
 var stimCreator = function(video_list, match_sent, mismatch_sent){
 	var stims = [];
@@ -92,6 +98,9 @@ trials = trials.concat(stimCreator(ons, on_sent, onto_sent));
 trials = trials.concat(stimCreator(ontos, onto_sent, on_sent));
 trials = trials.concat(stimCreator(filler1, filler1_sent, filler2_sent));
 trials = trials.concat(stimCreator(filler2, filler2_sent, filler1_sent));
+trials = trials.concat(stimCreator(fillerUnder_g, filler_u_g_s, filler_u_p_s));
+trials = trials.concat(stimCreator(fillerUnder_p, filler_u_p_s, filler_u_g_s));
 
 var shuffled_trials = jsPsych.randomization.shuffle(trials);
 var len = shuffled_trials.length;
+var train_len = 0;

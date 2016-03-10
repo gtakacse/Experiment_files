@@ -1,4 +1,4 @@
-/* Different video types for Experiment1 */
+/* Different video types for Experiment1 (English and Hungarian)*/
 
 /* Path of different stimuli types */
 var ins = ["in.box.caterpillar.mp4", "in.cave.monkey.mp4", "in.garden.rabbit.mp4", "in.garden.penguin.mp4"];
