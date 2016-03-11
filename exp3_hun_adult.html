@@ -58,7 +58,8 @@
     var background = {
   	  type: "survey-text",
   	  questions: ["Résztvevői azonosító", "Kor", "Nem", "Születési hely,", "Legmagasabb iskolai végzettség"],
-	  rows: 1
+	  rows: 1,
+	  submit: "Válasz küldése"
     };
     timeline.push(background);
 	
@@ -84,7 +85,9 @@
     		options: [[shuffled_trials[i].sentence1,shuffled_trials[i].sentence2]],
 			comment: true,
 			correct: shuffled_trials[i].correct,
-			video: shuffled_trials[i].video
+			video: shuffled_trials[i].video,
+			submit: "Válasz küldése",
+			com_text: "Itt hagyhat megjegyzést:"
 		};
 		timeline.push(trial);
 	};
