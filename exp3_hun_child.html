@@ -1,15 +1,15 @@
 <!doctype html>
-<!-- Experiment 2. - Hungarian Child version -->
+<!-- Experiment 3. - Hungarian Child version -->
 
 <html>
 <head>
-	<title> Experiment 2 - English child</title>
+	<title> Experiment 3 - Hungarian child</title>
     <script src="../jquery.min.js"></script>
     <script src="../jspsych-5.0/jspsych.js"></script>
-    <script src="../jspsych-5.0/plugins/jspsych-text-wrap1.js"></script>
+    <script src="../jspsych-5.0/plugins/jspsych-text-wrap2.js"></script>
 	<script src="../jspsych-5.0/plugins/jspsych-text.js"></script>
 	<script src="../jspsych-5.0/plugins/jspsych-survey-text.js"></script>
-	<script src="stim_list_exp2_child_hun.js"></script>
+	<script src="stim_list_exp3_child_hun.js"></script>
     <link href="../jspsych-5.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 	<style>
 	body{
@@ -21,7 +21,7 @@
 		width: 800px;
 		margin: 100px auto 50px auto;
 	}
-
+	
 	</style>
 	
 	<body>
@@ -42,13 +42,16 @@
 	
 	for (var i = 0; i < training_set.length; i++) {
 		var training = {
-			type: "text_wrap1",
+			type: "text_wrap2",
 			text: '<video class="video" width="800" controls preload="auto"> <source src="../stim/'+ training_set[i].video +'" type="video/mp4"></video>',
-			audio: training_set[i].sentence,
-			condition: training_set[i].condition,
+			audio1: training_set[i].sentence1,
+			audio2: training_set[i].sentence2,
+			condition: training_set[i].correct,
 			video: training_set[i].video,
-			img: "little_girl_flower.png",
-			bubble: "bubble_right.png"
+			img1: "little_girl_daisy_2.png",
+			img2: "little_girl_flower.png",
+			bubble_l: "bubble_left.png",
+			bubble_r: "bubble_right.png"
 		};
 		
 		timeline.push(training);
@@ -63,17 +66,19 @@
 	
 	for (var i = 0; i < shuffled_trials.length; i++){
 		var trial = {
-			type: "text_wrap1",
+			type: "text_wrap2",
 			text: '<video class="video" width="800" controls preload="auto"> <source src="../stim/'+ shuffled_trials[i].video +'" type="video/mp4"></video>',
-			//'<img id="girl" class="img" src="little_girl_flower.png">'
-			//'<img id="bubble" class="img" src=>',
-			//'<audio id="sound" src="Audio/Eng/' + shuffled_trials[i].sentence +'" hidden="true">'+
-			//'<div id="wrap">&nbsp;</div>'
-			audio: shuffled_trials[i].sentence,
-			condition: shuffled_trials[i].condition,
+			//'<img id="audio1" class="img_1" src="little_girl_daisy_2.png">' +
+			//'<img id="audio2" class="img_2" src="little_girl_flower.png">'+
+			//'<div id="wrap">&nbsp;</div>',
+			audio1: shuffled_trials[i].sentence1,
+			audio2: shuffled_trials[i].sentence2,
+			condition: shuffled_trials[i].correct,
 			video: shuffled_trials[i].video,
-			img: "little_girl_flower.png",
-			bubble: "bubble_right.png"
+			img1: "little_girl_daisy_2.png",
+			img2: "little_girl_flower.png",
+			bubble_l: "bubble_left.png",
+			bubble_r: "bubble_right.png"
 		};
 		timeline.push(trial);
 	};
@@ -82,12 +87,12 @@
 		display_element: $('#jspsych-target'),
 		timeline: timeline,
 		on_finish: function() {
+			//jsPsych.data.displayData(); 
 		    var data_obj = jsPsych.data.getDataByTrialIndex(0);
 		    var resp = data_obj["responses"];
 		    jsPsych.data.addProperties({subject: JSON.stringify(resp.substring(7,9))});
 			jsPsych.data.addProperties({date: JSON.stringify(Date())});
 			jsPsych.data.localSave('S' + JSON.stringify(resp.substring(7,9)) +'exp2_child.csv', 'csv');
-			//jsPsych.data.displayData(); 
 		}
 	})
 	</script>

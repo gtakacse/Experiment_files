@@ -8,7 +8,7 @@
 		<script src="../jspsych-5.0/plugins/jspsych-text.js"></script>
 		<script src="../jspsych-5.0/plugins/jspsych-survey-text.js"></script>
 		<script src="../jspsych-5.0/plugins/jspsych-survey-likert.js"></script>
-		<script src="stim_list_exp2.js"></script>
+		<script src="stim_list_exp2_hun.js"></script>
 		<link href="../jspsych-5.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 		<style>
 		
@@ -37,7 +37,16 @@
 		#sentence_stim{
 			font-size: 26px;
 			font-weight: bold;
-		}		
+		}
+		
+		.comment{
+			text-align: center;
+		}
+	
+		#comment-text{
+			margin-left:27%;
+		}
+				
 		</style>
 		<meta charset="UTF-8">
 	</head>
@@ -63,15 +72,15 @@
 	var instruction_block = {
 		type: "text",
 		text: '<div class="intro"> Instrukciók </div>'+
-	  '<div class="intro_text"><p>A kísérlet során rövid filmeket fog látni, amelyek egy-egy rövid mondattal lettek összepárosítva. </p>' +
+	  '<div class="intro_text"><p>A kísérlet során rövid filmeket fog látni, amelyek egy-egy  mondattal lettek összepárosítva. </p>' +
 		'<p>Az Ön feladata az lesz, hogy egyenként <b>végignézze</b> a videókat és <b>eldöntse</b> a videó alatti mondat mennyire jól jellemzi a videón történteket. A válaszát egy 1-től (<i>nagyon elégtelenül</i>) 4-ig (<i>nagyon jól</i>) terjedő skálán kell majd megadnia. A válaszát a megfelelő érték feletti pontra kattintva jelölheti.</p>' +
 		'<p>A skálára itt egy példa:</p>' +
 		'<form id="jspsych-survey-likert-form"><label class="jspsych-survey-likert-statement"></label><ul class="jspsych-survey-likert-opts" data-radio-group="Q0"><li style="width:25%"><input type="radio" name="Q0" value="0"><label class="jspsych-survey-likert-opt-label">1. Nagyon elégtelenül</label></li><li style="width:25%"><input type="radio" name="Q0" value="1"><label class="jspsych-survey-likert-opt-label">2. Elégtelenül</label></li><li style="width:25%"><input type="radio" name="Q0" value="2"><label class="jspsych-survey-likert-opt-label">3. Jól</label></li><li style="width:25%"><input type="radio" name="Q0" value="3"><label class="jspsych-survey-likert-opt-label">4. Nagyon jól</label></li></ul></form>' +
-	'<p>Miután végzett, a “Válasz küldése” gombra kattintva  léphet tovább a következő videóra. </p>' +
+	'<p>Amennyiben szükségét érzi, a lapok alján lévő szövegdobozban hagyhat megjegyzést. Miután végzett, a <b>“Válasz küldése”</b> gombra kattintva  léphet tovább a következő videóra. </p>' +
 	'<p><b>Minden videó automatikusan kezdődik és csak egyszer nézhető meg! </b></p>' +
 	'<p><b>A kísérlet során nincs lehetősége visszalépni azokra a lapokra, amelyeken egyszer már továbblépett, tehát kizárólag előre haladhat! Ezen okokból kifolyólag, kérjük nagyon figyeljen és a válaszát csak akkor adja meg, ha a videó már befejeződött. </b></p>' +
 	'<p><b>Kérjük NE KATTINTSON A BÖNGÉSZŐ ÚJRATÖLTÉS GOMBJÁRA, mert azzal a kísérlet a legelejétől kezdődik újra!</b></p>' +
-	'<p>A kísérlet körülbelül 35 percet vesz igénybe.</p></div>' +
+	'<p>A kísérlet körülbelül 20 percet vesz igénybe.</p></div>' +
 	'<div class="continue_text"> <p>Nyomjon meg egy tetszőleges billentyűt a folytatáshoz!</p></div>'
 	};
 	
@@ -79,7 +88,7 @@
     // defining two different response scales that can be used.
     var scale_1 = ["1. Nagyon elégtelenül", "2. Elégtelenül", "3. Jól", "4. VNagyon jól"];
     
-	for (var i=0; i < shuffled_trials.length; i++ ){
+	for (var i=0; i < 2; i++ ){
 		var likert_block = {
 	        type: 'survey-likert',
 	        questions: ["Milyen jól jellemzi a mondat a videón történteket?"],
@@ -88,7 +97,8 @@
 	+ shuffled_trials[i].video + '" type="video/mp4"></video>',
 			stim:  shuffled_trials[i].sentence,
 			condition: shuffled_trials[i].condition,
-			video: shuffled_trials[i].video
+			video: shuffled_trials[i].video,
+			comment: true
 	    };
 		timeline.push(likert_block);
 	};

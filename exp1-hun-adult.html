@@ -47,7 +47,7 @@
   
   var background = {
 	  type: "survey-text",
-	  questions: ["Résztvevői azonosító", "Kor", "Nem", "Születési hely", "Legmagasabb végzettség"],
+	  questions: ["Résztvevői azonosító", "Kor", "Nem", "Születési hely", "Legmagasabb iskolai végzettség"],
 	  rows: 1,
 	  hide: false
   };
@@ -56,12 +56,12 @@
   var instruction_block = {
 	  type: "text",
 	  text: '<div class="intro"> Instrukciók </div>'+
-	  '<div class="intro_text"> <p>A kísérlet során rövid filmeket fog látni, amelyben kisebb játékok fognak megjelenni különböző helyzetekben.</p> +
-<p> Az Ön feladata az lesz, hogy egyenként <b>végignézze</b> a videókat és mindegyik videó után egy mondatban <b>összefoglalja</b>, hogy mi történt a kis filmeken. A válaszát minden videó után a képernyő alján megjelenő szövegdobozba kell begépelnie. Miután végzett, a “Válasz küldése” gombra kattintva  léphet tovább a következő videóra. </p> +
-<p><b>Minden videó automatikusan kezdődik és csak egyszer nézhető meg! A kísérlet során nincs lehetősége visszalépni azokra a lapokra, amelyeken egyszer már továbblépett, tehát kizárólag előre haladhat! </b></p> +
-<p><b>Ezen okokból kifolyólag, kérjük nagyon figyeljen és a válaszát csak akkor kezdje el begépelni, ha a videó már befejeződött. </b></p> +
-<p><b>Kérjük NE KATTINTSON A BÖNGÉSZŐ ÚJRATÖLTÉS GOMBJÁRA, mert azzal a kísérlet a legelejétől kezdődik újra! </b></p> +
-<p>A kísérlet körülbelül 20 percet vesz igénybe.</p> </div>'+
+	  '<div class="intro_text"> <p>A kísérlet során rövid filmeket fog látni, amelyben kisebb játékok fognak megjelenni különböző helyzetekben.</p>' +
+'<p> Az Ön feladata az lesz, hogy egyenként <b>végignézze</b> a videókat és mindegyik videó után egy mondatban <b>összefoglalja</b>, hogy mi történt a kisfilmeken. A válaszát minden videó után a képernyő alján megjelenő szövegdobozba kell begépelnie. Miután végzett, a <b>“Válasz küldése”</b> gombra kattintva  léphet tovább a következő videóra. </p>' +
+'<p><b>Minden videó automatikusan kezdődik és csak egyszer nézhető meg! A kísérlet során nincs lehetősége visszalépni azokra a lapokra, amelyeken egyszer már továbblépett, tehát kizárólag előre haladhat! </b></p>' +
+'<p><b>Ezen okokból kifolyólag, kérjük nagyon figyeljen és a válaszát csak akkor kezdje el begépelni, ha a videó már befejeződött. </b></p>' +
+'<p><b>Kérjük NE KATTINTSON A BÖNGÉSZŐ ÚJRATÖLTÉS GOMBJÁRA, mert azzal a kísérlet a legelejétől kezdődik újra! </b></p>' +
+'<p>A kísérlet körülbelül 20 percet vesz igénybe.</p> </div>' +
 	  '<div class="continue_text"> <p>Nyomjon meg egy tetszőleges billentyűt a folytatáshoz!</p></div>'
   };
   timeline.push(instruction_block);
