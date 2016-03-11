@@ -37,7 +37,15 @@
 		#sentence_stim{
 			font-size: 26px;
 			font-weight: bold;
-		}		
+		}
+		.comment{
+			text-align: center;
+		}
+	
+		#comment-text{
+			margin-left:27%;
+		}
+				
 		</style>
 		<meta charset="UTF-8">
 	</head>
@@ -67,11 +75,11 @@
 		'<p> You will be asked to <b>watch</b> one video at a time and to <b>decide</b> how well the sentence describes what happened in the video. Your answer should be on a scale of 1 (<b><i>very poorly</i></b>) to 4 (<b><i>very well</i></b>). To select your answer, click on the circle above it. </p>' +
 		'<p>Here is an example of the scale:</p>'+
 		'<form id="jspsych-survey-likert-form"><label class="jspsych-survey-likert-statement"></label><ul class="jspsych-survey-likert-opts" data-radio-group="Q0"><li style="width:25%"><input type="radio" name="Q0" value="0"><label class="jspsych-survey-likert-opt-label">1. Very Poorly</label></li><li style="width:25%"><input type="radio" name="Q0" value="1"><label class="jspsych-survey-likert-opt-label">2. Poorly</label></li><li style="width:25%"><input type="radio" name="Q0" value="2"><label class="jspsych-survey-likert-opt-label">3. Well</label></li><li style="width:25%"><input type="radio" name="Q0" value="3"><label class="jspsych-survey-likert-opt-label">4. Very Well</label></li></ul></form>' +
-		'<p>When you are done, press the “Submit Answer” button. </p>' +
+		'<p>If you wish to leave a comment, you can do so in the textbox at the bottom of each page. When you are done, press the “Submit Answer” button. </p>' +
 	  '<p><b> Each video will start automatically and play only once. During the experiment, you are only allowed to move forward.</b></p>' +
 	  '<p><b> There is no way to rewatch the videos or to modify your previously submitted answers. So pay careful attention and <i>make your decision only when the video has stopped. </i></b></p>' +
 	  "<p><b> PLEASE DON'T PRESS THE REFRESS BUTTON OF THE BROWSWER, because it will restart the whole experiment! </b></p>" +
-		'<p> It will take approximately 35 minutes to complete the experiment. </p></div>'+
+		'<p> It will take approximately 20 minutes to complete the experiment. </p></div>'+
 	  '<div class="continue_text"> <p>Press any key to continue.</p></div>'
 	};
 	
@@ -88,7 +96,8 @@
 	+ shuffled_trials[i].video + '" type="video/mp4"></video>',
 			stim:  shuffled_trials[i].sentence,
 			condition: shuffled_trials[i].condition,
-			video: shuffled_trials[i].video
+			video: shuffled_trials[i].video,
+			comment: true
 	    };
 		timeline.push(likert_block);
 	};
