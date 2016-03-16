@@ -1,4 +1,6 @@
 /* Different video types and audio files for Experiment2 - Child version */
+/* With fully random order but the number of conditions is balanced (50% match -- 50% mismatch) 
+The only exception is the under condition. */
 
 /* Path of different stimuli types */
 var ins = ["in.box.caterpillar.mp4", "in.cave.monkey.mp4", "in.garden.rabbit.mp4", "in.garden.penguin.mp4"];

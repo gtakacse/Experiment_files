@@ -1,4 +1,5 @@
 /* Different video types and audio files for Experiment3 - Child version */
+/* Truely random order -- number of condition is NOT balanced */
 
 /* Path of different stimuli types */
 var ins = ["in.box.caterpillar.mp4", 
