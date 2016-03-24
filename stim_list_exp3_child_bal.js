@@ -99,10 +99,10 @@ var stimCreator = function(video_list, cond_list, match_list, mismatch_list){
 	for (var i = 0; i < video_list.length; i++){
 		if (cond_list[i] == 1){
 			var stim = {
-				vidio: video_list[i],
+				video: video_list[i],
 				sentence1: match_list[i],
 				sentence2: mismatch_list[i],
-				condition: 1
+				correct: 1
 			};
 			stims.push(stim);
 		}
@@ -112,7 +112,7 @@ var stimCreator = function(video_list, cond_list, match_list, mismatch_list){
 				video: video_list[i],
 				sentence1: mismatch_list[i],
 				sentence2: match_list[i],
-				condition: 2
+				correct: 2
 			};
 			stims.push(stim);
 		}
