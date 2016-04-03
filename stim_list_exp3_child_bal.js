@@ -78,48 +78,90 @@ var trial_length = ins.length + intos.length + ons.length + ontos.length + fille
 the ratio of the conditions is 50/50) */
 var condList = function(stim_length){
 	var conditions = [];
-
-	for (var i = 0; i < stim_length; i++){
-		if (i < stim_length/2){
+	
+	for (var i = 0; i < stim_length/2; i++){
+		chance = Math.random();
+		if (chance < 0.5){
 			conditions.push(1);
+			conditions.push(2);
 		}
 		else{
 			conditions.push(2);
+			conditions.push(1);
 		}
 	}
-	var shuffled_conditions = jsPsych.randomization.shuffle(conditions);
-	return shuffled_conditions;
+
+	return conditions;
 };
 
 var training_conditions = condList(training_length);
 var trial_conditions = condList(trial_length);
 
-var stimCreator = function(video_list, cond_list, match_list, mismatch_list){
+/* Stimulus prototype - a dictionary that links the video to matching and mismatching sentences */
+var stimObjC = function(video_list, match_list, mismatch_list){
 	var stims = [];
 	for (var i = 0; i < video_list.length; i++){
-		if (cond_list[i] == 1){
-			var stim = {
-				video: video_list[i],
-				sentence1: match_list[i],
-				sentence2: mismatch_list[i],
-				correct: 1
-			};
-			stims.push(stim);
-		}
-		
-		else {
-			var stim = {
-				video: video_list[i],
-				sentence1: mismatch_list[i],
-				sentence2: match_list[i],
-				correct: 2
-			};
-			stims.push(stim);
-		}
-		
+		var stim = {
+			video: video_list[i],
+			match: match_list[i],
+			mismatch: mismatch_list[i]
+		};
+		stims.push(stim);
 	}
 	return stims;
 };
+
+/* Helper function that joins the targets and the fillers in an evenly distributed fashion */
+var joinTargFill = function(target_list, filler_list){
+	var all_trials = [];
+	var fill_len = filler_list.length;
+	
+	for (var i = 0; i < target_list.length; i++){
+		if (i % fill_len == 0 & i != 0){
+			all_trials.push(filler_list[parseInt(i/fill_len)-1]);
+			all_trials.push(target_list[i]);
+		}
+		else{
+			all_trials.push(target_list[i]);
+		}
+	}
+	
+	if (target_list.length%fill_len == 0){
+		all_trials.push(filler_list[fill_len-1]);
+	}
+	
+	return all_trials;
+};
+
+/* Helper function which adds a condition to the prototype stimuli.
+It returns an object which can be used in experiment html files. */
+var addConditions = function(trialObj_list, cond_list){
+	expStims = [];
+	for (var i = 0; i < cond_list.length; i++){
+		var temp = trialObj_list[i];
+		if (cond_list[i] == 1){
+			var expS = {
+				video: temp.video,
+				sentence1: temp.match,
+				sentence2: temp.mismatch,
+				correct: 1 
+			};
+			expStims.push(expS);
+		}
+		else {
+			var expS = {
+				video: temp.video,
+				sentence1: temp.mismatch,
+				sentence2: temp.match,
+				correct: 2
+			};
+			expStims.push(expS);
+		}
+		
+	}
+	return expStims;
+};
+
 
 /* Create complete video list */
 var videos = [];
@@ -127,8 +169,10 @@ videos = videos.concat(ins);
 videos = videos.concat(intos);
 videos = videos.concat(ons);
 videos = videos.concat(ontos);
-videos = videos.concat(fillerTrans1);
-videos = videos.concat(fillerTrans2);
+
+var filler_v = [];
+filler_v = filler_v.concat(fillerTrans1);
+filler_v = filler_v.concat(fillerTrans2);
 
 /* Create complete match sentence list */
 var match_sent = [];
@@ -136,21 +180,34 @@ match_sent = match_sent.concat(in_audio);
 match_sent = match_sent.concat(into_audio);
 match_sent = match_sent.concat(on_audio);
 match_sent = match_sent.concat(onto_audio);
-match_sent = match_sent.concat(fillerTrans_audio1);
-match_sent = match_sent.concat(fillerTrans_audio2);
+
+var filler_match = [];
+filler_match = filler_match.concat(fillerTrans_audio1);
+filler_match = filler_match.concat(fillerTrans_audio2);
 
 var mismatch_sent = [];
 mismatch_sent = mismatch_sent.concat(into_audio);
 mismatch_sent = mismatch_sent.concat(in_audio);
 mismatch_sent = mismatch_sent.concat(onto_audio);
 mismatch_sent = mismatch_sent.concat(on_audio);
-mismatch_sent = mismatch_sent.concat(fillerTrans_audio2);
-mismatch_sent = mismatch_sent.concat(fillerTrans_audio1);
 
-var trials = stimCreator(videos, trial_conditions, match_sent, mismatch_sent);
-var shuffled_trials = jsPsych.randomization.shuffle(trials);
+var filler_mismatch = [];
+filler_mismatch = filler_mismatch.concat(fillerTrans_audio2);
+filler_mismatch = filler_mismatch.concat(fillerTrans_audio1);
+
+var targ_trials = stimObjC(videos, match_sent, mismatch_sent);
+var shuffled_targets = jsPsych.randomization.shuffle(targ_trials);
+
+var filler_trials = stimObjC(filler_v, filler_match, filler_mismatch);
+var shuffled_fillers = jsPsych.randomization.shuffle(filler_trials);
+
+/* Join targets and fillers in way that fillers are evenly distributed among targets */
+var joined_trials = joinTargFill(shuffled_targets, shuffled_fillers);
+/* Add conditions, and return stimuli which is ready for the experiment */
+var shuffled_trials = addConditions(joined_trials, trial_conditions);
 var len = shuffled_trials.length;
 
-var training_set = stimCreator(training_vid, training_conditions, training_audio_true, training_audio_false);
+var train_objects = stimObjC(training_vid, training_audio_true, training_audio_false);
+var training_set = addConditions(train_objects, training_conditions);
 var train_len = training_set.length;
 
