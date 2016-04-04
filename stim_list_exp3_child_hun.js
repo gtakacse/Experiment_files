@@ -33,14 +33,14 @@ var training_vid = ["filler.monkey.kick.mp4",
 					"filler.rabbit.cover.mp4"];
 
 var in_audio = ["hernyo_dobozban.wav",
-				"majom_barlagban.wav",
+				"majom_barlangban.wav",
 				"nyuszi_kertben.wav",
 				"pingvin_kertben.wav"];
 
 var into_audio = ["hernyo_dobozba.wav",
 				"majom_barlangba.wav",
 				"nyuszi_kertbe.wav",
-				"pingvin_kertve.wav"];
+				"pingvin_kertbe.wav"];
 
 var on_audio = ["nyuszi_tanyeron.wav",
 				"majom_dobozon.wav",
